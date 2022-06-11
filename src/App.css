@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.status-card{
+  text-align: left;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -26,6 +30,10 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.date{
+  color:gray;
 }
 
 @keyframes App-logo-spin {

@@ -1,25 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
 import NavBar from './NavBar';
+import MainPage from './MainPage';
 
 function App() {
   return (
     <div className="App">
         <NavBar></NavBar>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and die, you choose Spider-Man
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <MainPage></MainPage>
     </div>
   );
 }
