@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link as RouteLink} from 'react-router-dom';
 
 class NavBar extends React.Component{
     Brand(){
@@ -11,14 +12,14 @@ class NavBar extends React.Component{
         if(props.active){
             return(
                 <li className="nav-item active">
-                    <a className="nav-link" href={props.LinkRef}>{props.LinkName} <span className="sr-only">(current)</span></a>
+                    <RouteLink to={props.LinkRef}>{props.LinkName} <span className="sr-only">(current)</span></RouteLink>
                 </li>
             );
         }
         else{
             return(
-                <li className="nav-item active">
-                    <a className="nav-link" href={props.LinkRef}>{props.LinkName}</a>
+                <li className="nav-item">
+                    <RouteLink to={props.LinkRef}>{props.LinkName}</RouteLink>
                 </li>
             );
         }
@@ -38,8 +39,8 @@ class NavBar extends React.Component{
                 <button className="btn btn-outline-success" type="submit">Search</button>
               </form>
               <ul className="navbar-nav me-auto">
-                <this.Link LinkName="Home" LinkRef="#"></this.Link>
-                <this.Link LinkName="Feed" LinkRef="#"></this.Link>                
+                <this.Link LinkName="Home" LinkRef="/"></this.Link>
+                <this.Link LinkName="Feed" LinkRef="/"></this.Link>                
               </ul>
               <ul className="navbar-nav ms-auto">
                     <li className="nav-item dropdown">
