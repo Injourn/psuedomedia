@@ -4,7 +4,7 @@ import {Link as RouteLink} from 'react-router-dom';
 class NavBar extends React.Component{
     Brand(){
         return(
-            <RouteLink className="navbar-brand" href="/">Psuedo</RouteLink>
+            <RouteLink className="navbar-brand" to="/">Psuedo</RouteLink>
         );
     }
 
@@ -46,8 +46,8 @@ class NavBar extends React.Component{
                     <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
                         <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><RouteLink className="dropdown-item" href="/login">Login</RouteLink></li>
-                            <li><RouteLink className="dropdown-item" href="/register">Register</RouteLink></li>
+                            <li><RouteLink className="dropdown-item" to="/login">Login</RouteLink></li>
+                            <li><RouteLink className="dropdown-item" to="/register">Register</RouteLink></li>
                         </ul>
                     </li>
                 </ul>

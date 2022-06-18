@@ -7,7 +7,7 @@ class Feed extends React.Component{
         <div className='card my-5'>
             <div className="card-body">
                 <form className="d-flex">
-                    <input className="form-control me-2" type="text" placeholder="Something on your mind?"/>
+                    <textarea className="form-control me-2" type="text" placeholder="Something on your mind?"/>
                     <button className="btn btn-outline-success" type="submit">Update Status</button>
                 </form>
             </div>
