@@ -88,9 +88,9 @@ class ApiClient {
     get account(){
         return{
             get: (id) => this.get(`Account/${id}`),
-            create: (account) => this.post("Account",account),
-            update: (account) => this.put(`/Account/${account.id}`,account),
-            delete: (id) => this.delete(`/Account/${id}`),
+            create: (account) => this.post("/Account",account),
+            update: (account) => this.put(`/Account`,account),
+            delete: (id) => this.delete(`/Account`),
             addFriend : (id) => this.post(`/Account/addFriend/${id}`),
             removeFriend : (id) => this.post(`/Account/removeFriend/${id}`),
             follow : (id) => this.post(`/Account/follow/${id}`),
