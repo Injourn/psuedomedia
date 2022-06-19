@@ -1,7 +1,8 @@
 class ApiClient {
     constructor(options = {}) {
         this._baseURL = options.baseURL || "";
-        this._headers = options.headers || {};
+        this._headers = options.headers || { "Content-Type":'application/json' };
+        
     }
 
     setHeader(key, value) {
@@ -19,10 +20,10 @@ class ApiClient {
             headers: this._headers
         });
     
-        if (!res.ok) throw new Error(res.statusText);
+        if (!res.ok) return {success: false, response: res.text()};
         
         if (options.parseResponse !== false && res.status !== 204)
-            return res.json();
+            return {success: true,response: res.json()};
         
         return undefined;
     }
@@ -72,7 +73,7 @@ class ApiClient {
 
     get auth() {
         return {
-            login: () => this.get("/auth/login")
+            login: (authInfo) => this.post("/auth/login",authInfo)
         }
     }
 
