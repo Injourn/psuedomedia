@@ -24,8 +24,8 @@ class ApiClient {
         
         if (options.parseResponse !== false && res.status !== 204)
             return {success: true,response: res.json(),headers: res.headers};
-        
-        return undefined;
+
+        return {success: true,headers: res.headers};
     }
 
     get(endpoint, options = {}) {
