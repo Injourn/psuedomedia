@@ -23,7 +23,7 @@ class ApiClient {
         if (!res.ok) return {success: false, response: res.text()};
         
         if (options.parseResponse !== false && res.status !== 204)
-            return {success: true,response: res.json()};
+            return {success: true,response: res.json(),headers: res.headers};
         
         return undefined;
     }

@@ -34,6 +34,13 @@ class LoginScreen extends React.Component{
                     })
                 });
             }
+            else {
+                res.response.then(json => {
+                    console.log(json);
+                    this.props.setTokens(json);
+                });
+                window.location = "/";
+            }
         });
     }
 

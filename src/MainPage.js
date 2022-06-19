@@ -10,7 +10,7 @@ class MainPage extends React.Component{
             <div className='container'>
                 <div className='row justify-content-md-center'>
                     <SideBar></SideBar>
-                    <Feed></Feed>
+                    <Feed displayInput={this.props.tokens.jwtToken} tokens={this.props.tokens}></Feed>
                 </div>
             </div>
         );

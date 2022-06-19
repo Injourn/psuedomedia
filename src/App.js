@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import React, {useState} from 'react'
 import './App.css';
 import NavBar from './NavBar';
 import MainPage from './MainPage';
@@ -11,14 +12,26 @@ import {
 } from "react-router-dom";
 import Register from './Register';
 
+function setTokens(tokens){
+  localStorage.setItem('jwtToken',tokens.oAuthToken);
+  localStorage.setItem('refreshToken',tokens.refreshToken);
+}
+
+function getTokens(tokens){
+  const jwtToken = localStorage.getItem('jwtToken');
+  const refreshToken = localStorage.getItem('refreshToken');
+  return {jwtToken:jwtToken,refreshToken:refreshToken}
+}
+
 function App() {
+  const tokens = getTokens();
   return (
     <Router>
       <div className="App">
-          <NavBar></NavBar>
+          <NavBar tokens={tokens}></NavBar>
           <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<MainPage tokens={tokens}/>} />
+            <Route path="/login" element={<Login setTokens={setTokens} />} />
             <Route path="/register" element={<Register />}  />
           </Routes>
       </div>

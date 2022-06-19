@@ -45,10 +45,18 @@ class NavBar extends React.Component{
               <ul className="navbar-nav ms-auto">
                     <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
-                        <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><RouteLink className="dropdown-item" to="/login">Login</RouteLink></li>
-                            <li><RouteLink className="dropdown-item" to="/register">Register</RouteLink></li>
-                        </ul>
+                        {   !this.props.tokens.jwtToken &&
+                            <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><RouteLink className="dropdown-item" to="/login">Login</RouteLink></li>
+                                <li><RouteLink className="dropdown-item" to="/register">Register</RouteLink></li>
+                            </ul>
+                        }
+                        {   this.props.tokens.jwtToken &&
+                            <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><RouteLink className="dropdown-item" to="#">Modify Account</RouteLink></li>
+                                <li><RouteLink className="dropdown-item" to="#">Logout</RouteLink></li>
+                            </ul>
+                        }
                     </li>
                 </ul>
             </div>
