@@ -57,7 +57,7 @@ class Feed extends React.Component{
                 </div>
                 <div className="card-body">
                     <div className="createdDate">
-                        {props.data.createdDate}
+                        {new Date(props.data.createdDate).toDateString()}
                     </div>
                     {props.data.message}
                 </div>
