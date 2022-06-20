@@ -66,12 +66,7 @@ class Feed extends React.Component{
     }
 
     render(){
-        const test = [
-            {userCreatedName: "example1", createdDate: "6/10/2022", message: "I love making posts!",replies: [],id:'0'},
-            {userCreatedName: "example2", createdDate: "6/10/2022", message: "frist!",replies: [],id:'0'},
-            {userCreatedName: "example3", createdDate: "6/10/2022", message: "no you're not!",replies: [],id:'0'},
-            {userCreatedName: "example2", createdDate: "6/10/2022", message: "I wish there was a reply button...",replies: [],id:'0'}
-        ];
+        const test = [];
         this.state.statuses.map((stats,id) => {
             test.push(stats)
         });
