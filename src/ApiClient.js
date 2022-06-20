@@ -20,7 +20,19 @@ class ApiClient {
             headers: this._headers
         });
     
-        if (!res.ok) return {success: false, response: res.text()};
+        if (!res.ok){ 
+            if(this._headers["Authorization"]){
+                localStorage.removeItem('jwtToken');
+                localStorage.removeItem('refreshToken');
+                window.location.href = "/";
+            }
+            return {success: false, response: res.text()};
+        }
+        console.log(...res.headers);
+        if(res.headers.get("pm-jwttoken")){
+            localStorage.setItem('jwtToken',res.headers.get("pm-jwttoken"));
+            localStorage.setItem('refreshToken',res.headers.get("pm-refreshtoken"));
+        }
         
         if (options.parseResponse !== false && res.status !== 204)
             return {success: true,response: res.json(),headers: res.headers};
