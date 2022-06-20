@@ -23,12 +23,17 @@ function getTokens(tokens){
   return {jwtToken:jwtToken,refreshToken:refreshToken}
 }
 
+function logout(){
+  localStorage.removeItem('jwtToken');
+  localStorage.removeItem('refreshToken');
+}
+
 function App() {
   const tokens = getTokens();
   return (
     <Router>
       <div className="App">
-          <NavBar tokens={tokens}></NavBar>
+          <NavBar tokens={tokens} logout={logout}></NavBar>
           <Routes>
             <Route path="/" element={<MainPage tokens={tokens}/>} />
             <Route path="/login" element={<Login setTokens={setTokens} />} />
