@@ -2,6 +2,11 @@ import React from 'react';
 import {Link as RouteLink} from 'react-router-dom';
 
 class NavBar extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.logout = this.logout.bind(this);
+    }
     Brand(){
         return(
             <RouteLink className="navbar-brand" to="/">Psuedo</RouteLink>
@@ -27,6 +32,7 @@ class NavBar extends React.Component{
     
     logout(){
         this.props.logout();
+        window.location.href = "/"
     }
 
 
