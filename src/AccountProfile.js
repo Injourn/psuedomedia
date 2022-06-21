@@ -13,6 +13,15 @@ class AccountProfile extends React.Component{
         this.handleFriend = this.handleFriend.bind(this);
     }
 
+    componentWillMount() {
+        // this._asyncRequest = loadMyAsyncData().then(
+        //   externalData => {
+        //     this._asyncRequest = null;
+        //     this.setState({externalData});
+        //   }
+        // );
+    }
+
     renderToolTip = (props) => (
         <div>Hello <b>there</b>!</div>
     )
