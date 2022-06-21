@@ -9,7 +9,7 @@ class MainPage extends React.Component{
         return (
             <div className='container'>
                 <div className='row justify-content-md-center'>
-                    <SideBar></SideBar>
+                    <SideBar isLoggedIn={this.props.tokens.jwtToken} ></SideBar>
                     <Feed displayInput={this.props.tokens.jwtToken} tokens={this.props.tokens}></Feed>
                 </div>
             </div>

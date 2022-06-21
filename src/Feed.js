@@ -1,5 +1,6 @@
 import React from 'react';
 import ApiClient from './ApiClient';
+import AccountProfile from './AccountProfile';
 
 class Feed extends React.Component{
     constructor(props){
@@ -53,7 +54,8 @@ class Feed extends React.Component{
         return (
             <div className='card text-start my-5'>
                 <div className="card-header">
-                    {props.data.userCreatedName}
+                    <AccountProfile displayName={props.data.userCreatedName} />
+                    
                 </div>
                 <div className="card-body">
                     <div className="createdDate">
