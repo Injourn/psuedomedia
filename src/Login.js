@@ -27,18 +27,13 @@ class LoginScreen extends React.Component{
         apiClient.auth.login({"Username":this.state.username,"Password":this.state.password}).then(res =>{
             console.log(res);
             if(!res.success){
-                res.response.then(text => {
-                    this.setState({
-                        error: true,
-                        errorMsg: text
-                    })
+                this.setState({
+                    error: true,
+                    errorMsg: res.response
                 });
             }
             else {
-                res.response.then(json => {
-                    console.log(json);
-                    this.props.setTokens(json);
-                });
+                this.props.setTokens(res.response);
                 window.location = "/";
             }
         });

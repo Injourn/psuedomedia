@@ -28,20 +28,15 @@ class Register extends React.Component{
             console.log(res);
             if(!res.success){
                 if(res.response){
-                    res.response.then(text => {
-                        this.setState({
-                            error: true,
-                            errorMsg: text
-                        })
+                    this.setState({
+                        error: true,
+                        errorMsg: res.response
                     });
                 }
             }
             else {
                 if(res.response){
-                    res.response.then(json => {
-                        console.log(json);
-                        this.props.setTokens(json);
-                    });
+                    this.props.setTokens(res.response);
                 }
                 window.location = "/login";
             }

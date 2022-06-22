@@ -26,7 +26,7 @@ class ApiClient {
                 localStorage.removeItem('refreshToken');
                 window.location.href = "/";
             }
-            return {success: false, response: res.text()};
+            return {success: false, response: await res.text()};
         }
         console.log(...res.headers);
         if(res.headers.get("pm-jwttoken")){
@@ -35,7 +35,7 @@ class ApiClient {
         }
         
         if (options.parseResponse !== false && res.status !== 204)
-            return {success: true,response: res.json(),headers: res.headers};
+            return {success: true,response: await res.json(),headers: res.headers};
 
         return {success: true,headers: res.headers};
     }
@@ -100,7 +100,7 @@ class ApiClient {
 
     get account(){
         return{
-            get: (id) => this.get(`Account/${id}`),
+            get: (id) => this.get(`/Account/${id}`),
             create: (account) => this.post("/Account",account),
             update: (account) => this.put(`/Account`,account),
             delete: (id) => this.delete(`/Account`),

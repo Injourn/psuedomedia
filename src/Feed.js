@@ -75,11 +75,9 @@ class Feed extends React.Component{
         if(this.state.statuses.length === 0){
             let apiClient = this.getApiClient();
             apiClient.feed.get().then(res => {
-            res.response.then(resp => {
                 this.setState({
-                    statuses : resp
+                    statuses : res.response
                 });
-            });
             })
         }
 
