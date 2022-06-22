@@ -21,7 +21,7 @@ class ApiClient {
         });
     
         if (!res.ok){ 
-            if(this._headers["Authorization"]){
+            if(this._headers["Authorization"] && res.status === 401){
                 localStorage.removeItem('jwtToken');
                 localStorage.removeItem('refreshToken');
                 window.location.href = "/";
