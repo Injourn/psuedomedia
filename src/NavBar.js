@@ -1,12 +1,22 @@
 import React from 'react';
 import {Link as RouteLink} from 'react-router-dom';
+import jwt from 'jwt-decode'
 
 class NavBar extends React.Component{
     constructor(props){
         super(props);
-
+        this.state = {displayName: ''}
         this.logout = this.logout.bind(this);
     }
+    componentDidMount(){
+        if(this.props.tokens.jwtToken){            
+            const user = jwt(this.props.tokens.jwtToken);
+            this.setState({
+                displayName: user.username
+            });
+        }
+    }
+
     Brand(){
         return(
             <RouteLink className="navbar-brand" to="/">Psuedo</RouteLink>
@@ -63,6 +73,7 @@ class NavBar extends React.Component{
                         }
                         {   this.props.tokens.jwtToken &&
                             <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><b className="dropdown-item">{this.state.displayName}</b></li>
                                 <li><RouteLink className="dropdown-item" to="#">Modify Account</RouteLink></li>
                                 <li><a className="dropdown-item" href='#' onClick={this.logout}>Logout</a></li>
                             </ul>
