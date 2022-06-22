@@ -1,6 +1,6 @@
 import React from 'react';
 import ApiClient from './ApiClient';
-import AccountProfile from './AccountProfile';
+import ProfilePopover from './ProfilePopover';
 
 class Feed extends React.Component{
     constructor(props){
@@ -54,7 +54,7 @@ class Feed extends React.Component{
         return (
             <div className='card text-start my-5'>
                 <div className="card-header">
-                    <AccountProfile displayName={props.data.userCreatedName} />
+                    <ProfilePopover userId={props.data.userCreatedById} displayName={props.data.userCreatedName} />
                     
                 </div>
                 <div className="card-body">
