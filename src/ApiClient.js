@@ -107,7 +107,7 @@ class ApiClient {
             addFriend : (id) => this.post(`/Account/addFriend/${id}`),
             removeFriend : (id) => this.post(`/Account/removeFriend/${id}`),
             follow : (id) => this.post(`/Account/follow/${id}`),
-            unfollow : (id) => this.post(`/Account/addFriend/${id}`)
+            unfollow : (id) => this.post(`/Account/unfollow/${id}`)
         }
     }
 }
