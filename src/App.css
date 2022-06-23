@@ -41,6 +41,11 @@
   position:fixed;
 }
 
+.side-bar-mini{
+  margin-left : 40px;
+  font-size: small;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
