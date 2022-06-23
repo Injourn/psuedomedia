@@ -1,5 +1,6 @@
 import React from 'react'
 import ApiClient from './ApiClient';
+import {Link} from 'react-router-dom'
 
 class SideBar extends React.Component{
     constructor(props){
@@ -27,7 +28,7 @@ class SideBar extends React.Component{
         const friendsList = [];
         this.state.friends.map((friends,id) => {
             friendsList.push(<li className="nav-item">
-                <a className="nav-link side-bar-mini" href={"/user/" + friends.userId}>{friends.displayName}</a>
+                <Link className="nav-link side-bar-mini" to={"/user/" + friends.userId}>{friends.displayName}</Link>
             </li>)
         })
         return (
@@ -35,10 +36,10 @@ class SideBar extends React.Component{
                 <div className='sticky-top'>
                     <ul className="nav flex-column nav-pills menu-sidebar text-start" data-mdb-allow-hashes="true">                   
                         <li className="nav-item">
-                            <a className="nav-link" href="#section-introduction">View All Posts</a>
+                            <Link className="nav-link" to="/">View All Posts</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#section-basic-example">Only View Friends' Posts</a>
+                            <Link className="nav-link" to="/Friends">Only View Friends' Posts</Link>
                             <ul className='nav flex-column nav-pills menu-sidebar text-start'>
                                 {friendsList}                                
                             </ul>

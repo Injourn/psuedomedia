@@ -10,6 +10,33 @@ class Feed extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
+    componentDidMount(){
+        if(this.state.statuses.length === 0){
+            let apiClient = this.getApiClient();
+            if(this.props.limited){
+                apiClient.feed.getFriendsPosts().then(res => {
+                    this.setState({
+                        statuses : res.response
+                    });
+                })
+            }
+            else if(this.props.userId){
+                apiClient.feed.getUserPosts(this.props.userId).then(res => {
+                    this.setState({
+                        statuses : res.response
+                    });
+                    console.log(res.response);
+                })
+            }
+            else{   
+                apiClient.feed.get().then(res => {
+                    this.setState({
+                        statuses : res.response
+                    });
+                })
+            }
+        }
+    }
 
     getApiClient(){
         let options = {baseURL: "https://localhost:7217"};
@@ -72,14 +99,6 @@ class Feed extends React.Component{
         this.state.statuses.map((stats,id) => {
             test.push(stats)
         });
-        if(this.state.statuses.length === 0){
-            let apiClient = this.getApiClient();
-            apiClient.feed.get().then(res => {
-                this.setState({
-                    statuses : res.response
-                });
-            })
-        }
 
         let statuses = [];
         

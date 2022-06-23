@@ -60,7 +60,7 @@ class NavBar extends React.Component{
               </form>
               <ul className="navbar-nav me-auto">
                 <this.Link LinkName="Home" LinkRef="/"></this.Link>
-                <this.Link LinkName="Feed" LinkRef="/"></this.Link>                
+                <this.Link LinkName="Feed" LinkRef="/Friends"></this.Link>                
               </ul>
               <ul className="navbar-nav ms-auto">
                     <li className="nav-item dropdown">

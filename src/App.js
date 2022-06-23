@@ -8,9 +8,12 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
+  Link,
+  useParams
 } from "react-router-dom";
 import Register from './Register';
+import FriendsPage from './FriendsPage';
+import UserPage from './UserPage';
 
 function setTokens(tokens){
   localStorage.setItem('jwtToken',tokens.oAuthToken);
@@ -36,8 +39,10 @@ function App() {
           <NavBar tokens={tokens} logout={logout}></NavBar>
           <Routes>
             <Route path="/" element={<MainPage tokens={tokens}/>} />
+            <Route path="/Friends" element={<FriendsPage tokens={tokens} friendsOnly={true}></FriendsPage>} />
             <Route path="/login" element={<Login setTokens={setTokens} />} />
             <Route path="/register" element={<Register />}  />
+            <Route path="/user/:userId" element={<UserPage tokens={tokens} />} />
           </Routes>
       </div>
     </Router>
