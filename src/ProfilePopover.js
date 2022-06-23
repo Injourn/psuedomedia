@@ -10,7 +10,7 @@ function ProfilePopover(props){
         transition={false}
         overlay={
             (<div>
-                <AccountProfile profileId={props.userId} displayName={props.displayName} />
+                <AccountProfile profileId={props.userId}/>
             </div>)
         }
     >

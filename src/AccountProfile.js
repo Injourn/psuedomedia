@@ -7,7 +7,7 @@ import ApiClient from "./ApiClient";
 class AccountProfile extends React.Component{
     constructor(props){
         super(props);
-        this.state = {toRelationship: '', fromRelationship: '', contentLoaded: false};
+        this.state = {displayName: '', toRelationship: '', fromRelationship: '', contentLoaded: false};
         
 
         this.handleFollow = this.handleFollow.bind(this);
@@ -23,14 +23,16 @@ class AccountProfile extends React.Component{
             apiClient.account.get(this.props.profileId).then(res => {
                 if(!res.response.isRelated){
                     this.setState({
-                        contentLoaded : true
+                        contentLoaded : true,
+                        displayName : res.response.displayName
                     })
                 }
                 else{
                     this.setState({
                         contentLoaded : true,
                         toRelationship : res.response.toRelationshipType,
-                        fromRelationship : res.response.fromRelationshipType
+                        fromRelationship : res.response.fromRelationshipType,
+                        displayName : res.response.displayName
                     });
                 }
             })            
@@ -107,7 +109,7 @@ class AccountProfile extends React.Component{
             return (
                 <div className="card">
                     <div className="card-body">
-                        <Link to="#"><b className="d-flex justify-content-center">{this.props.displayName}</b> </Link> <br></br>
+                        <Link to="#"><b className="d-flex justify-content-center">{this.state.displayName}</b> </Link> <br></br>
                         { this.state.toRelationship === "FRIEND"
                             ?   <button className="btn btn-primary disabled" onClick={this.handleFollow}>Follow</button>
                             :   (  this.state.toRelationship !== "FOLLOW" 
