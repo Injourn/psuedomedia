@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom"
 import { OverlayTrigger, Popover } from "react-bootstrap";
 import ApiClient from "./ApiClient";
+import jwt from "jwt-decode";
 
 
 class AccountProfile extends React.Component{
@@ -96,7 +97,7 @@ class AccountProfile extends React.Component{
     }
 
     render(){
-        const isLoggedIn = localStorage.getItem('jwtToken');
+        const isLoggedIn = localStorage.getItem('jwtToken');        
         if(!this.state.contentLoaded){
             return (
                 <div className="card">
@@ -105,7 +106,7 @@ class AccountProfile extends React.Component{
                     </div>
                 </div>
             );
-        } else if (isLoggedIn) {
+        } else if (isLoggedIn && jwt(isLoggedIn).id !== this.props.profileId) {
             return (
                 <div className="card">
                     <div className="card-body">
