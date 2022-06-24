@@ -10,7 +10,7 @@ class SideBar extends React.Component{
 
     componentDidMount() {
         if(!this.state.contentLoaded && this.props.isLoggedIn){
-            let options = {baseURL: "https://localhost:7217"};
+            let options = {baseURL: process.env.REACT_APP_API_URL};
             let apiClient = new ApiClient(options);
             apiClient.setBearerAuthorization(localStorage.getItem('jwtToken'));
             apiClient.setHeader("pm-refreshToken",localStorage.getItem('refreshToken'));

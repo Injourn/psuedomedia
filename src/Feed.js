@@ -39,7 +39,7 @@ class Feed extends React.Component{
     }
 
     getApiClient(){
-        let options = {baseURL: "https://localhost:7217"};
+        let options = {baseURL: process.env.REACT_APP_API_URL};
         let apiClient = new ApiClient(options);
         apiClient.setBearerAuthorization(this.props.tokens.jwtToken);
         apiClient.setHeader("pm-refreshToken",this.props.tokens.refreshToken);

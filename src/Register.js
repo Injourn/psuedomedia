@@ -22,7 +22,7 @@ class Register extends React.Component{
 
     handleSubmit(event){
         event.preventDefault();
-        let options = {baseURL:"https://localhost:7217"};
+        let options = {baseURL:process.env.REACT_APP_API_URL};
         let apiClient = new ApiClient(options);
         apiClient.account.create({"Name":this.state.displayName,"Username":this.state.username,"Password":this.state.password}).then(res =>{
             console.log(res);
