@@ -9,7 +9,7 @@ class SideBar extends React.Component{
     }
 
     componentDidMount() {
-        if(!this.state.contentLoaded){
+        if(!this.state.contentLoaded && this.props.isLoggedIn){
             let options = {baseURL: "https://localhost:7217"};
             let apiClient = new ApiClient(options);
             apiClient.setBearerAuthorization(localStorage.getItem('jwtToken'));

@@ -96,7 +96,7 @@ class AccountProfile extends React.Component{
     }
 
     render(){
-        console.log(this.state);
+        const isLoggedIn = localStorage.getItem('jwtToken');
         if(!this.state.contentLoaded){
             return (
                 <div className="card">
@@ -105,11 +105,11 @@ class AccountProfile extends React.Component{
                     </div>
                 </div>
             );
-        } else {
+        } else if (isLoggedIn) {
             return (
                 <div className="card">
                     <div className="card-body">
-                        <Link to="#"><b className="d-flex justify-content-center">{this.state.displayName}</b> </Link> <br></br>
+                        <Link to={"/user/" + this.props.profileId}><b className="d-flex justify-content-center">{this.state.displayName}</b> </Link> <br></br>
                         { this.state.toRelationship === "FRIEND"
                             ?   <button className="btn btn-primary disabled" onClick={this.handleFollow}>Follow</button>
                             :   (  this.state.toRelationship !== "FOLLOW" 
@@ -131,6 +131,14 @@ class AccountProfile extends React.Component{
                     </div>
                 </div>
             );
+        } else {
+            return (
+                <div className="card">
+                    <div className="card-body">
+                        <Link to={"/user/" + this.props.profileId}><b className="d-flex justify-content-center">{this.state.displayName}</b> </Link>
+                    </div>
+                </div>
+            )
         }
     }
 }
