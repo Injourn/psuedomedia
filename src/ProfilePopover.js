@@ -1,6 +1,6 @@
 import React from "react";
 import AccountProfile from "./AccountProfile";
-import { OverlayTrigger, Popover } from "react-bootstrap";
+import { OverlayTrigger } from "react-bootstrap";
 
 
 function ProfilePopover(props){
