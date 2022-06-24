@@ -1,6 +1,5 @@
 import React from "react";
 import {Link} from "react-router-dom"
-import { OverlayTrigger, Popover } from "react-bootstrap";
 import ApiClient from "./ApiClient";
 import jwt from "jwt-decode";
 

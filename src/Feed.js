@@ -96,13 +96,13 @@ class Feed extends React.Component{
 
     render(){
         const test = [];
-        this.state.statuses.map((stats,id) => {
+        this.state.statuses.forEach((stats,id) => {
             test.push(stats)
         });
 
         let statuses = [];
         
-        test.map((stats,id)=>{
+        test.forEach((stats,id)=>{
             statuses.push(<this.status data={stats} key={id}></this.status>)
         });
         return (

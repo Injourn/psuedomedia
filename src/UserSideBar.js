@@ -1,6 +1,5 @@
 import React from 'react'
 import AccountProfile from './AccountProfile';
-import ApiClient from './ApiClient';
 
 class UserSideBar extends React.Component{
     

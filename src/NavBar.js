@@ -64,7 +64,7 @@ class NavBar extends React.Component{
               </ul>
               <ul className="navbar-nav ms-auto">
                     <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
+                        <a className="nav-link dropdown-toggle" href="!#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
                         {   !this.props.tokens.jwtToken &&
                             <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><RouteLink className="dropdown-item" to="/login">Login</RouteLink></li>
@@ -75,7 +75,7 @@ class NavBar extends React.Component{
                             <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><b className="dropdown-item">{this.state.displayName}</b></li>
                                 <li><RouteLink className="dropdown-item" to="#">Modify Account</RouteLink></li>
-                                <li><a className="dropdown-item" href='#' onClick={this.logout}>Logout</a></li>
+                                <li><a className="dropdown-item" href='!#' onClick={this.logout}>Logout</a></li>
                             </ul>
                         }
                     </li>

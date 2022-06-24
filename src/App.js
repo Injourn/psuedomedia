@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import React, {useState} from 'react'
+import React from 'react'
 import './App.css';
 import NavBar from './NavBar';
 import MainPage from './MainPage';
@@ -7,9 +6,7 @@ import Login from './Login.js';
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  Link,
-  useParams
+  Route
 } from "react-router-dom";
 import Register from './Register';
 import FriendsPage from './FriendsPage';

@@ -26,7 +26,7 @@ class SideBar extends React.Component{
     render(){
         console.log(this.state.friends);
         const friendsList = [];
-        this.state.friends.map((friends,id) => {
+        this.state.friends.forEach((friends,id) => {
             friendsList.push(<li className="nav-item">
                 <Link className="nav-link side-bar-mini" to={"/user/" + friends.userId}>{friends.displayName}</Link>
             </li>)
