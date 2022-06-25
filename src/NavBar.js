@@ -74,7 +74,7 @@ class NavBar extends React.Component{
                         {   this.props.tokens.jwtToken &&
                             <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><b className="dropdown-item">{this.state.displayName}</b></li>
-                                <li><RouteLink className="dropdown-item" to="#">Modify Account</RouteLink></li>
+                                <li><RouteLink className="dropdown-item" to="/modifyAccount">Modify Account</RouteLink></li>
                                 <li><a className="dropdown-item" href='!#' onClick={this.logout}>Logout</a></li>
                             </ul>
                         }

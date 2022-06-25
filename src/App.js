@@ -11,6 +11,7 @@ import {
 import Register from './Register';
 import FriendsPage from './FriendsPage';
 import UserPage from './UserPage';
+import ModifyAccount from './ModifyAccount';
 
 function setTokens(tokens){
   localStorage.setItem('jwtToken',tokens.oAuthToken);
@@ -39,6 +40,7 @@ function App() {
             <Route path="/Friends" element={<FriendsPage tokens={tokens} friendsOnly={true}></FriendsPage>} />
             <Route path="/login" element={<Login setTokens={setTokens} />} />
             <Route path="/register" element={<Register />}  />
+            <Route path="/modifyAccount" element={<ModifyAccount tokens={tokens} />} />
             <Route path="/user/:userId" element={<UserPage tokens={tokens} />} />
           </Routes>
       </div>
