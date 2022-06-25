@@ -123,11 +123,13 @@ class Feed extends React.Component{
                         )
                     })
                     }
+                    { props.displayInput &&
                     <li className='list-group-item'>
                         <div className="card-body">
-                            <ReplyBox {...props} parentId={props.data.id}/>
+                                <ReplyBox {...props} parentId={props.data.id}/>
                         </div>
                     </li>
+                    }
                 </ul>
             </div>
         );
