@@ -41,7 +41,7 @@ class ModifyAccount extends React.Component{
         event.preventDefault();        
         let apiClient = this.getApiClient();
         apiClient.account.update({"Id":this.state.id,"Name":this.state.displayName,"Username":this.state.username,"Password":this.state.password}).then(res =>{
-            console.log(res);
+            
             if(!res.success){
                 if(res.response){
                     this.setState({

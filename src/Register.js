@@ -25,7 +25,7 @@ class Register extends React.Component{
         let options = {baseURL:process.env.REACT_APP_API_URL};
         let apiClient = new ApiClient(options);
         apiClient.account.create({"Name":this.state.displayName,"Username":this.state.username,"Password":this.state.password}).then(res =>{
-            console.log(res);
+            
             if(!res.success){
                 if(res.response){
                     this.setState({

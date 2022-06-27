@@ -25,7 +25,7 @@ class LoginScreen extends React.Component{
         let options = {baseURL:process.env.REACT_APP_API_URL};
         let apiClient = new ApiClient(options);
         apiClient.auth.login({"Username":this.state.username,"Password":this.state.password}).then(res =>{
-            console.log(res);
+            
             if(!res.success){
                 this.setState({
                     error: true,

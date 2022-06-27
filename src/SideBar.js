@@ -24,7 +24,7 @@ class SideBar extends React.Component{
     }
 
     render(){
-        console.log(this.state.friends);
+        
         const friendsList = [];
         this.state.friends.forEach((friends,id) => {
             friendsList.push(<li className="nav-item">

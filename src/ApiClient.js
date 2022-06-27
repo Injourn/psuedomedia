@@ -28,7 +28,7 @@ class ApiClient {
             }
             return {success: false, response: await res.text()};
         }
-        console.log(...res.headers);
+        
         if(res.headers.get("pm-jwttoken")){
             localStorage.setItem('jwtToken',res.headers.get("pm-jwttoken"));
             localStorage.setItem('refreshToken',res.headers.get("pm-refreshtoken"));

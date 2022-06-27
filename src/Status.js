@@ -28,7 +28,7 @@ class Status extends React.Component{
     constructor(props){
         super(props);
         this.state = {rating:this.props.data.rating, userRating:this.props.data.userRating}
-        console.log(this.props);
+        
 
         this.upVote = this.upVote.bind(this);
         this.downVote = this.downVote.bind(this);
@@ -52,7 +52,7 @@ class Status extends React.Component{
     }
 
     downVote(event){
-        console.log(this.props);
+        
         let apiClient = this.getApiClient();
         apiClient.feed.downvotePost(this.props.data.id).then(res => {
             this.setState({
