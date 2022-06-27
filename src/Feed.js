@@ -1,28 +1,6 @@
 import React from 'react';
 import ApiClient from './ApiClient';
-import ProfilePopover from './ProfilePopover';
-
-function ReplyBox(props){
-    const [message,setMessage] = React.useState("");
-
-    const handleSubmit = (event) => {        
-        event.preventDefault();
-        let options = {baseURL: process.env.REACT_APP_API_URL};
-        let apiClient = new ApiClient(options);
-        apiClient.setBearerAuthorization(props.tokens.jwtToken);
-        apiClient.setHeader("pm-refreshToken",props.tokens.refreshToken);
-        apiClient.feed.create({"PostText":message,"ParentPostId":props.parentId}).then(res => {
-            window.location.reload();
-        });
-    }
-
-    return (
-        <form className="d-flex" onSubmit={handleSubmit}>
-            <input className="form-control me-2" onChange={(e) => setMessage(e.target.value)} type="text" placeholder="Send a reply" aria-label="reply"/>
-            <button className="btn btn-outline-primary" type="submit">Reply</button>
-        </form>
-    );
-}
+import Status from './Status';
 
 class Feed extends React.Component{
     constructor(props){
@@ -98,43 +76,6 @@ class Feed extends React.Component{
         );
     }
 
-    status(props){
-        return (
-            <div className='card text-start my-5'>
-                <div className="card-header">
-                    <ProfilePopover userId={props.data.userCreatedById} displayName={props.data.userCreatedName} />
-                    
-                </div>
-                <ul className='list-group list-group-flush'>
-                    <li className='list-group-item'>
-                        <div className="date">
-                            {new Date(props.data.createdDate).toDateString()}
-                        </div>
-                        {props.data.message}
-                    </li>
-                    {
-                    props.data.replies.map((stats,id)=>{
-                        return (
-                            <li className='list-group-item'>
-                                <div className="card-body">
-                                    <b>{stats.userCreatedName}:</b> {stats.message}
-                                </div>
-                            </li>
-                        )
-                    })
-                    }
-                    { props.displayInput &&
-                    <li className='list-group-item'>
-                        <div className="card-body">
-                                <ReplyBox {...props} parentId={props.data.id}/>
-                        </div>
-                    </li>
-                    }
-                </ul>
-            </div>
-        );
-    }
-
     render(){
         const test = [];
         this.state.statuses.forEach((stats,id) => {
@@ -143,7 +84,7 @@ class Feed extends React.Component{
 
         let statuses = [];
         test.forEach((stats,id)=>{
-            statuses.push(<this.status {...this.props} data={stats} key={id}></this.status>)
+            statuses.push(<Status {...this.props} data={stats} key={id}></Status>)
         });
         return (
             <div className='col-lg-6'>

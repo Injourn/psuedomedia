@@ -96,7 +96,10 @@ class ApiClient {
             update: (post) => this.put(`/Feed/${post.id}`,post),
             delete: (id) => this.delete(`/Feed/${id}`),
             getUserPosts: (id) => this.get(`/Feed/getUserPosts/${id}`),
-            getFriendsPosts: () => this.get("/Feed/getFriendsPosts")
+            getFriendsPosts: () => this.get("/Feed/getFriendsPosts"),
+            postRating: (id) => this.get(`/Feed/postRating?postId=${id}`),
+            upvotePost: (id) => this.post(`/Feed/upvotePost?postId=${id}`),
+            downvotePost: (id) => this.post(`/Feed/downvotePost?postId=${id}`),
         };
     }
 
