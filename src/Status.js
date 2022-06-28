@@ -1,6 +1,7 @@
 import React from 'react';
 import ApiClient from './ApiClient';
 import ProfilePopover from './ProfilePopover';
+import jwt from 'jwt-decode'
 
 function ReplyBox(props){
     const [message,setMessage] = React.useState("");
@@ -27,11 +28,39 @@ function ReplyBox(props){
 class Status extends React.Component{
     constructor(props){
         super(props);
-        this.state = {rating:this.props.data.rating, userRating:this.props.data.userRating}
-        
+        this.state = {rating:this.props.data.rating, userRating:this.props.data.userRating,editMode:false,editMessage:this.props.data.message}
+        if(this.props.tokens.jwtToken){
+            const user = jwt(this.props.tokens.jwtToken);
+            this.currentUsersPost = user.id === this.props.data.userCreatedById
+        }
 
         this.upVote = this.upVote.bind(this);
         this.downVote = this.downVote.bind(this);
+        this.toggleEditMode = this.toggleEditMode.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    toggleEditMode(){
+        this.setState({
+            editMode: !this.state.editMode
+        })
+    }
+
+    handleSubmit(event){
+        event.preventDefault();
+        let apiClient = this.getApiClient();
+        apiClient.feed.update({"PostText":this.state.editMessage},this.props.data.id).then(res => {
+            window.location.reload();
+        });   
+    }
+    handleChange(event){
+        const name = event.target.name;
+        const value = event.target.value;
+
+        this.setState({
+            [name]: value
+        })
     }
 
     getApiClient(){
@@ -82,13 +111,36 @@ class Status extends React.Component{
                     </div>
                     
                 </div>
+                
                 <ul className='list-group list-group-flush'>
-                    <li className='list-group-item'>
-                        <div className="date">
-                            {new Date(this.props.data.createdDate).toDateString()}
-                        </div>
-                        {this.props.data.message}
-                    </li>
+                    {this.state.editMode ? 
+                        <li className='list-group-item'>
+                            <div className='card my-5'>
+                                <div className="card-body">
+                                    <form onSubmit={this.handleSubmit} className="d-flex">
+                                        <input className="form-control me-2" type="text" placeholder="Something on your mind?" value={this.state.editMessage} name="editMessage" onChange={this.handleChange}/>
+                                        <button className="btn btn-outline-danger" type="reset" onClick={this.toggleEditMode}>Cancel</button>
+                                        <button className="btn btn-outline-success" type="submit">Modify Status</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                        :
+                        <li className='list-group-item'>
+                            <div className="d-flex justify-content-between">
+                                <div className="date p-2">
+                                    {new Date(this.props.data.createdDate).toDateString()}
+                                </div>
+                                <div classNAme="p-2">
+                                {   
+                                    this.currentUsersPost && 
+                                    <b onClick={this.toggleEditMode}>Edit</b>
+                                }
+                                </div>
+                            </div>
+                            {this.props.data.message}
+                        </li>
+                    }
                     {
                     this.props.data.replies.map((stats,id)=>{
                         return (

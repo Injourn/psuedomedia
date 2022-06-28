@@ -50,8 +50,7 @@ class Feed extends React.Component{
         let apiClient = this.getApiClient();
         apiClient.feed.create({"PostText":this.state.postMessage}).then(res => {
             window.location.reload();
-        });
-        
+        });   
     }
 
     handleChange(event){
