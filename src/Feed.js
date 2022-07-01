@@ -16,21 +16,21 @@ class Feed extends React.Component{
             if(this.props.limited){
                 apiClient.feed.getFriendsPosts().then(res => {
                     this.setState({
-                        statuses : res.response
+                        statuses : res.response.statuses
                     });
                 })
             }
             else if(this.props.userId){
                 apiClient.feed.getUserPosts(this.props.userId).then(res => {
                     this.setState({
-                        statuses : res.response
+                        statuses : res.response.statuses
                     });
                 })
             }
             else{   
                 apiClient.feed.get().then(res => {
                     this.setState({
-                        statuses : res.response
+                        statuses : res.response.statuses
                     });
                 })
             }
