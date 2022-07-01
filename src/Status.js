@@ -80,7 +80,11 @@ function Reply(props){
 class Status extends React.Component{
     constructor(props){
         super(props);
-        this.state = {rating:this.props.data.rating, userRating:this.props.data.userRating,editMode:false,editMessage:this.props.data.message}
+        this.state = {rating:this.props.data.rating,
+            userRating:this.props.data.userRating,
+            editMode:false,
+            editMessage:this.props.data.message,
+        }
         if(this.props.tokens.jwtToken){
             const user = jwt(this.props.tokens.jwtToken);
             this.currentUsersPost = user.id === this.props.data.userCreatedById
@@ -128,7 +132,8 @@ class Status extends React.Component{
         let apiClient = this.getApiClient();
         apiClient.feed.upvotePost(this.props.data.id).then(res => {
             this.setState({
-                rating: res.response.rating
+                rating: res.response.rating,
+                userRating : res.response.userRating
             });
         });
     }
@@ -138,7 +143,8 @@ class Status extends React.Component{
         let apiClient = this.getApiClient();
         apiClient.feed.downvotePost(this.props.data.id).then(res => {
             this.setState({
-                rating: res.response.rating
+                rating: res.response.rating,
+                userRating : res.response.userRating
             });
         });
     }

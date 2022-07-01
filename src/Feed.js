@@ -5,36 +5,50 @@ import Status from './Status';
 class Feed extends React.Component{
     constructor(props){
         super(props);
-        this.state = {postMessage:'',statuses: []}
+        this.state = {postMessage:'',statuses: [],currentPage:1,loadMore:false}
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.loadMore = this.loadMore.bind(this);
     }
     componentDidMount(){
-        if(this.state.statuses.length === 0){
-            let apiClient = this.getApiClient();
-            if(this.props.limited){
-                apiClient.feed.getFriendsPosts().then(res => {
-                    this.setState({
-                        statuses : res.response.statuses
-                    });
-                })
-            }
-            else if(this.props.userId){
-                apiClient.feed.getUserPosts(this.props.userId).then(res => {
-                    this.setState({
-                        statuses : res.response.statuses
-                    });
-                })
-            }
-            else{   
-                apiClient.feed.get().then(res => {
-                    this.setState({
-                        statuses : res.response.statuses
-                    });
-                })
-            }
+        this.loadStatuses(0);
+    }
+
+    loadStatuses(page){
+        let apiClient = this.getApiClient();
+        if(this.props.limited){
+            apiClient.feed.getFriendsPosts(page).then(res => {
+                this.setState({
+                    statuses :[...this.state.statuses, ...res.response.statuses],
+                    loadMore : res.response.count > (this.state.currentPage * 10)
+                });
+            })
         }
+        else if(this.props.userId){
+            apiClient.feed.getUserPosts(this.props.userId,page).then(res => {
+                this.setState({
+                    statuses :[...this.state.statuses, ...res.response.statuses],
+                    loadMore : res.response.count > (this.state.currentPage * 10)
+                });
+            })
+        }
+        else{   
+            apiClient.feed.get(page).then(res => {
+                this.setState({
+                    statuses :[...this.state.statuses, ...res.response.statuses],
+                    loadMore : res.response.count > (this.state.currentPage * 10)
+                });
+            })
+        }
+
+    }
+
+    loadMore(){
+        this.loadStatuses(this.state.currentPage);
+        this.setState({
+            currentPage: this.state.currentPage + 1
+        })
     }
 
     getApiClient(form){
@@ -111,6 +125,10 @@ class Feed extends React.Component{
                 <this.statusCreate handleChange={this.handleChange} handleSubmit={this.handleSubmit}></this.statusCreate>
                 }
                 {statuses}
+                {
+                    this.state.loadMore &&
+                    <button className="btn btn-primary m-5" onClick={this.loadMore} > Load More Posts </button>
+                }
             </div>
         );
     }
