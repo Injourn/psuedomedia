@@ -41,7 +41,7 @@ function Reply(props){
         let apiClient = getApiClient();
         apiClient.feed.upvotePost(props.stats.id).then(res => {
             setRating(res.response.rating);
-            setUserRating(1);
+            setUserRating(res.response.userRating);
         });
     }
 
@@ -50,7 +50,7 @@ function Reply(props){
         let apiClient = getApiClient();
         apiClient.feed.downvotePost(props.stats.id).then(res => {
             setRating(res.response.rating);
-            setUserRating(-1);
+            setUserRating(res.response.userRating);
         });
     }
     
