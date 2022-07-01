@@ -61,6 +61,17 @@ class ApiClient {
         )
     }
 
+    postForm(endpoint,body,options = {}){
+        return this._fetchJSON(
+            endpoint, 
+            {
+              ...options, 
+              body: body, 
+              method: 'POST' 
+            }
+          )
+    }
+
     put(endpoint, body, options = {}) {
         return this._fetchJSON(
           endpoint, 
@@ -100,6 +111,13 @@ class ApiClient {
             postRating: (id) => this.get(`/Feed/postRating?postId=${id}`),
             upvotePost: (id) => this.post(`/Feed/upvotePost?postId=${id}`),
             downvotePost: (id) => this.post(`/Feed/downvotePost?postId=${id}`),
+        };
+    }
+
+    get attachment(){
+        return{
+            get: (id) => this.get(`/Attachment/${id}`),
+            create: (postId,formBody) => this.postForm(`/Attachment?postId${postId}`,formBody)
         };
     }
 

@@ -41,6 +41,14 @@ class Status extends React.Component{
         this.handleChange = this.handleChange.bind(this);
     }
 
+    getApiClient(){
+        let options = {baseURL: process.env.REACT_APP_API_URL};
+        let apiClient = new ApiClient(options);
+        apiClient.setBearerAuthorization(this.props.tokens.jwtToken);
+        apiClient.setHeader("pm-refreshToken",this.props.tokens.refreshToken);
+        return apiClient;
+    }
+
     toggleEditMode(){
         this.setState({
             editMode: !this.state.editMode
@@ -63,13 +71,6 @@ class Status extends React.Component{
         })
     }
 
-    getApiClient(){
-        let options = {baseURL: process.env.REACT_APP_API_URL};
-        let apiClient = new ApiClient(options);
-        apiClient.setBearerAuthorization(this.props.tokens.jwtToken);
-        apiClient.setHeader("pm-refreshToken",this.props.tokens.refreshToken);
-        return apiClient;
-    }
 
     upVote(event){
         let apiClient = this.getApiClient();
@@ -138,7 +139,17 @@ class Status extends React.Component{
                                 }
                                 </div>
                             </div>
-                            {this.props.data.message}
+                            {this.props.data.message} <br></br>
+                            {this.props.data.attachmentId ?
+                                (
+                                    this.props.data.attachmentTag === "Image" ? 
+                                    <img src={process.env.REACT_APP_API_URL + "/Attachment/" + this.props.data.attachmentId} alt=''/>
+                                    :
+                                    <video width="320" height="240" >
+                                        <source src='{process.env.REACT_APP_API_URL + "/Attachment/" + this.props.data.attachmentId}'/>
+                                    </video>
+                                ) : <></>
+                            }
                         </li>
                     }
                     {
