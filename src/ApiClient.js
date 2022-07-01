@@ -117,7 +117,7 @@ class ApiClient {
     get attachment(){
         return{
             get: (id) => this.get(`/Attachment/${id}`),
-            create: (postId,formBody) => this.postForm(`/Attachment?postId${postId}`,formBody)
+            create: (postId,formBody) => this.postForm(`/Attachment?postId=${postId}`,formBody)
         };
     }
 

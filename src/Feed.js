@@ -37,8 +37,11 @@ class Feed extends React.Component{
         }
     }
 
-    getApiClient(){
+    getApiClient(form){
         let options = {baseURL: process.env.REACT_APP_API_URL};
+        if(form){
+            options.headers = { "Content-Type":'multipart/form-data' }
+        }
         let apiClient = new ApiClient(options);
         apiClient.setBearerAuthorization(this.props.tokens.jwtToken);
         apiClient.setHeader("pm-refreshToken",this.props.tokens.refreshToken);
@@ -49,13 +52,26 @@ class Feed extends React.Component{
         event.preventDefault();
         let apiClient = this.getApiClient();
         apiClient.feed.create({"PostText":this.state.postMessage}).then(res => {
-            window.location.reload();
+            if(this.state.file){
+                let formApiClient = this.getApiClient(true);
+                formApiClient.setBearerAuthorization(this.props.tokens.jwtToken);
+                formApiClient.setHeader("pm-refreshToken",this.props.tokens.refreshToken);
+                let formData = new FormData();
+                formData.append('File',this.state.file);
+                formApiClient.attachment.create(res.response.id,formData).then(res => {
+                    window.location.reload();
+                })
+            }
+            else {
+                window.location.reload();
+            }
         });   
     }
 
     handleChange(event){
         const name = event.target.name;
-        const value = event.target.value;
+        const value = event.target.type !== "file" ? event.target.value : event.target.files[0];
+        console.log(name + ":" + value);
 
         this.setState({
             [name]: value
@@ -66,9 +82,12 @@ class Feed extends React.Component{
         return (
         <div className='card my-5'>
             <div className="card-body">
-                <form onSubmit={props.handleSubmit} className="d-flex">
-                    <input className="form-control me-2" type="text" placeholder="Something on your mind?" name="postMessage" onChange={props.handleChange}/>
-                    <button className="btn btn-outline-success" type="submit">Update Status</button>
+                <form onSubmit={props.handleSubmit} >
+                    <div className="d-flex">
+                        <input className="form-control me-2" type="text" placeholder="Something on your mind?" name="postMessage" onChange={props.handleChange}/>
+                        <button className="btn btn-outline-success" type="submit">Update Status</button>
+                    </div>
+                    <input className="form-control form-control-sm" type="file" name="file" onChange={props.handleChange} />
                 </form>
             </div>
         </div>

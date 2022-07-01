@@ -132,7 +132,7 @@ class Status extends React.Component{
                                 <div className="date p-2">
                                     {new Date(this.props.data.createdDate).toDateString()}
                                 </div>
-                                <div classNAme="p-2">
+                                <div className="p-2">
                                 {   
                                     this.currentUsersPost && 
                                     <b onClick={this.toggleEditMode}>Edit</b>
