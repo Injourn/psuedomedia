@@ -25,6 +25,58 @@ function ReplyBox(props){
     );
 }
 
+function Reply(props){
+    const [rating,setRating] = React.useState(props.stats.rating);
+    const [userRating,setUserRating] = React.useState(props.stats.userRating);
+
+    const getApiClient = () => {
+        let options = {baseURL: process.env.REACT_APP_API_URL};
+        let apiClient = new ApiClient(options);
+        apiClient.setBearerAuthorization(props.jwtToken);
+        apiClient.setHeader("pm-refreshToken",props.refreshToken);
+        return apiClient;
+    }
+
+    const upVote = (event) => {
+        let apiClient = getApiClient();
+        apiClient.feed.upvotePost(props.stats.id).then(res => {
+            setRating(res.response.rating);
+            setUserRating(1);
+        });
+    }
+
+    const downVote = (event) => {
+        
+        let apiClient = getApiClient();
+        apiClient.feed.downvotePost(props.stats.id).then(res => {
+            setRating(res.response.rating);
+            setUserRating(-1);
+        });
+    }
+    
+    return (
+        <li className='list-group-item'>
+            <div className="d-flex justify-content-between">
+                <div className='p-2'>
+                    <ProfilePopover userId={props.stats.userCreatedById} displayName={props.stats.userCreatedName} />: 
+                    {props.stats.message}
+                </div>
+                <div className="p-2">
+                    {userRating > 0 ?
+                        <i className="fa-solid fa-arrow-up m-0" onClick={upVote} style={{color:'mediumspringgreen'}}></i>:
+                        <i className="fa-solid fa-arrow-up m-0" onClick={upVote} ></i> }
+                    &nbsp;
+                    {userRating < 0 ?
+                        <i className="fa-solid fa-arrow-down m-0" onClick={downVote} style={{color:'red'}}></i> :
+                        <i className="fa-solid fa-arrow-down m-0" onClick={downVote} ></i> }
+                    &nbsp;
+                    <b>{rating}</b>
+                </div>
+            </div>
+        </li>
+    )
+}
+
 class Status extends React.Component{
     constructor(props){
         super(props);
@@ -153,12 +205,8 @@ class Status extends React.Component{
                     }
                     {
                     this.props.data.replies.map((stats,id)=>{
-                        return (
-                            <li className='list-group-item'>
-                                <div className="card-body">
-                                    <b>{stats.userCreatedName}:</b> {stats.message}
-                                </div>
-                            </li>
+                        return ( 
+                            <Reply stats={stats} key={id} jwtToken={this.props.tokens.jwtToken} refreshToken={this.props.tokens.refreshToken} />
                         )
                     })
                     }
