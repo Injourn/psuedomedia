@@ -40,7 +40,7 @@ class Feed extends React.Component{
     getApiClient(form){
         let options = {baseURL: process.env.REACT_APP_API_URL};
         if(form){
-            options.headers = { "Content-Type":'multipart/form-data' }
+            options.headers = {}
         }
         let apiClient = new ApiClient(options);
         apiClient.setBearerAuthorization(this.props.tokens.jwtToken);
@@ -57,8 +57,8 @@ class Feed extends React.Component{
                 formApiClient.setBearerAuthorization(this.props.tokens.jwtToken);
                 formApiClient.setHeader("pm-refreshToken",this.props.tokens.refreshToken);
                 let formData = new FormData();
-                formData.append('File',this.state.file);
-                formApiClient.attachment.create(res.response.id,formData).then(res => {
+                formData.append('file',this.state.file);
+                formApiClient.attachment.create(res.response.id,formData).then(res => {                    
                     window.location.reload();
                 })
             }

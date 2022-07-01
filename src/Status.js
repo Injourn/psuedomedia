@@ -143,7 +143,7 @@ class Status extends React.Component{
                             {this.props.data.attachmentId ?
                                 (
                                     this.props.data.attachmentTag === "Image" ? 
-                                    <img src={process.env.REACT_APP_API_URL + "/Attachment/" + this.props.data.attachmentId} alt=''/>
+                                    <img className="img-fluid" src={process.env.REACT_APP_API_URL + "/Attachment/" + this.props.data.attachmentId} alt=''/>
                                     :
                                     <video width="320" height="240" src={process.env.REACT_APP_API_URL + "/Attachment/" + this.props.data.attachmentId} >                                        
                                     </video>
