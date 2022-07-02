@@ -84,7 +84,11 @@ class Status extends React.Component{
             userRating:this.props.data.userRating,
             editMode:false,
             editMessage:this.props.data.message,
+            replies:this.props.data.replies,
+            currentPage: 1,
+            loadMore: (this.props.data.replyCount > 5)
         }
+        console.log(this.state);
         if(this.props.tokens.jwtToken){
             const user = jwt(this.props.tokens.jwtToken);
             this.currentUsersPost = user.id === this.props.data.userCreatedById
@@ -95,6 +99,7 @@ class Status extends React.Component{
         this.toggleEditMode = this.toggleEditMode.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.loadMoreReplies = this.loadMoreReplies.bind(this);
     }
 
     getApiClient(){
@@ -103,6 +108,17 @@ class Status extends React.Component{
         apiClient.setBearerAuthorization(this.props.tokens.jwtToken);
         apiClient.setHeader("pm-refreshToken",this.props.tokens.refreshToken);
         return apiClient;
+    }
+
+    loadMoreReplies(){
+        let apiClient = this.getApiClient();
+        apiClient.feed.getMoreReplies(this.props.data.id,this.state.currentPage).then(res => {
+            this.setState({
+                replies :[...this.state.replies, ...res.response.statuses],
+                loadMore : res.response.replyCount > (this.state.currentPage * 5),
+                currentPage : this.state.currentPage + 1
+            });
+        })
     }
 
     toggleEditMode(){
@@ -210,11 +226,19 @@ class Status extends React.Component{
                         </li>
                     }
                     {
-                    this.props.data.replies.map((stats,id)=>{
+                    this.state.replies.map((stats,id)=>{
                         return ( 
                             <Reply stats={stats} key={id} jwtToken={this.props.tokens.jwtToken} refreshToken={this.props.tokens.refreshToken} />
                         )
                     })
+                    }
+                    {
+                        this.state.loadMore &&
+                        <li className='list-group-item'>
+                            <div className="card-body">
+                                <button className="btn btn-primary m-1" onClick={this.loadMoreReplies} > Load More Posts </button>
+                            </div>
+                        </li>
                     }
                     { this.props.displayInput &&
                     <li className='list-group-item'>
